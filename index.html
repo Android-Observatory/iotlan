@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Smart speakers collect voice input that can be used to infer sensitive information about users. Given a number of egregious privacy breaches (e.g., smart speakers constantly recording audio, outsourcing transcription to contractors, and employees listening to private and intimate interactions), there is a clear unmet need for greater transparency and control over data collection, sharing, and use by smart speaker platforms as well as third-party skills supported on them. To bridge the gap, we build an auditing framework that leverages online advertising to measure data collection, its usage, and its sharing by the smart speaker platforms. We evaluate our framework on the Amazon smart speaker ecosystem. Our results show that Amazon and third parties (including advertising and tracking services) collect smart speaker interaction data. We find that Amazon processes voice data to infer user interests and uses it to serve targeted ads on-platform (Echo devices) as well as off-platform (web). Smart speaker interaction leads to as much as 30X higher ad bids from advertisers. Finally, we find that Amazon's and skills' operational practices are often not clearly disclosed in their privacy policies.">
+    <title>Your Echos are Heard: Tracking, Profiling, and Ad Targeting in the Amazon Smart Speaker Ecosystem</title>
+
+
+    <link href="bootstrap.min.css" rel="stylesheet">    
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .profiles {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+      }
+
+      .profile > img {
+        height: 200px;
+        width: auto;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+        margin-bottom: 0.75em;
+        border-radius: 6px;
+      }
+
+      #logos {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      #allen-logo {
+        width: 330px;
+        margin: 20px;
+        height: auto;
+      }
+
+      #davis-logo {
+        width: 200px;
+        margin: 20px;
+        height: auto;
+      }
+
+      #ppd-logo {
+        width: 180px;
+        margin: 20px;
+        height: auto;
+      }
+
+      #irvine-logo {
+        width: 220px;
+        margin: 20px;
+        height: auto;
+      }
+
+      #neu-logo {
+        width: 270px;
+        margin: 20px;
+        height: auto;
+      }
+
+    </style>
+  </head>
+  <body>
+    
+<div class="col-lg-8 mx-auto p-5 py-md-12">
+  <header class="d-flex pb-3 mb-4 border-bottom d-flex justify-content-center">
+      <a href="/" class="text-dark text-decoration-none">
+        <span class="fs-4 d-flex justify-content-center fw-bold">Your Echos are Heard</span>
+        <span class="fs-4 d-flex justify-content-center fw-bold">Tracking, Profiling, and Ad Targeting in the Amazon Smart Speaker Ecosystem</span>
+      </a>
+  </header>
+  
+
+  <main>
+    <p class="fs-6 col-md-12">
+      Smart speakers collect voice input that can be used to infer sensitive information about users. Given a number of egregious privacy breaches (e.g., <a href="https://money.cnn.com/2017/10/11/technology/google-home-mini-security-flaw/index.html">speakers constantly recording audio</a>, <a href="https://www.usatoday.com/story/tech/2019/07/11/google-home-smart-speakers-employees-listen-conversations/1702205001/">outsourcing transcription to contractors</a>, and <a href="https://www.bloomberg.com/news/articles/2019-04-10/is-anyone-listening-to-you-on-alexa-a-global-team-reviews-audio">employees listening to private and intimate interactions</a>), there is a clear unmet need for greater transparency and control over data collection, sharing, and use by smart speaker platforms as well as third-party skills supported on them. To bridge the gap, we build an auditing framework that leverages online advertising to measure data collection, its usage, and its sharing by the smart speaker platforms. We evaluate our framework on the Amazon smart speaker ecosystem. Our results show that Amazon and third parties (including advertising and tracking services) collect smart speaker interaction data. We find that Amazon processes voice data to infer user interests and uses it to serve targeted ads on-platform (Echo devices) as well as off-platform (web). Smart speaker interaction leads to as much as 30X higher ad bids from advertisers. Finally, we find that Amazon's and skills' operational practices are often not clearly disclosed in their privacy policies.
+
+      <br><br>
+      We provide a brief FAQ below to highlight some of our findings. We suggest reading the <a href="amazon_echo.pdf">full paper</a> for more details. Please reach out to us if you have additional questions.
+    
+    </p>
+
+    <hr class="col-12 col-md-12 mb-12">
+
+    <div class="row g-12">
+      <div class="col-md-12">
+        <span class="mb-0 fs-4 d-flex align-items-center text-dark FAQ"> <a class="text-dark text-decoration-none fw-bold" href="#FAQ">Frequently asked questions</a></span>
+      </br>
+
+      <p class="fs-5 fw-bold pt-2">What was the motivation behind this research?</p>
+      <p>The convenience of voice input has contributed to the rising popularity of smart speakers, such as Amazon Echo (powered by Amazon Alexa), but it has also introduced several unique privacy threats. Many of these privacy issues stem from the fact that smart speakers record audio from their environment and potentially share this data with other parties over the Internet &mdash; <a href="https://www.petsymposium.org/2020/files/papers/issue4/popets-2020-0070.pdf">even when they should not</a>. For example, smart speaker vendors or third-parties may infer users' sensitive physical (e.g., age, health) and psychological (e.g., mood, confidence) <a href="https://machinelistening.exposed/library/Rita%20Singh/Profiling%20Humans%20From%20Their%20Voice%20(38)/Profiling%20Humans%20From%20Their%20Voi%20-%20Rita%20Singh.pdf">traits from their voice</a>. In addition, the set of questions and commands issued to a smart speaker can reveal sensitive information about users' states of mind, interests, and concerns. Despite the significant potential for privacy harms, users have little-to-no visibility into what information is captured by smart speakers, how it is shared with other parties, or how it is used by such parties. Our goal is to provide this visibility, allowing consumers to better understand the privacy risks of these devices and the impact of data sharing on people's online experiences.
+      </p>
+
+      <p class="fs-5 fw-bold pt-2">How did you do this research?</p>
+      <p>We built an auditing framework that measures the collection, usage, and sharing of Amazon Echo interaction data. First, we created several interest personas and one control persona to use the Echos (one persona per Echo device). Interest personas installed and interacted with skills from specific categories, while the control persona did not install or interact with skills. 
+      </br></br>
+      We then measured data collection by intercepting network traffic from Amazon and skills on the Echo device to endpoints (such as Amazon's server or third-party servers). We measured profiling by directly downloading personas' advertising interests from Amazon. We inferred data usage by observing ads targeted to our Echo personas on the web (ads on websites) and on the Echo devices (audio ads).  We checked the consistency of data collection and its usage by analyzing public statements and privacy policies from Amazon and third-party skills. 
+      
+      </p>
+
+      <p class="fs-5 fw-bold pt-4">What are the key findings of your research?</p>
+        <ul>
+          <li><i>Which organizations collect and propagate user data?</i> 
+            <p>Amazon Echo interaction data is collected by both Amazon and third-parties (such as advertising and tracking services). We found that as many as 41 advertisers sync (share) their cookies with Amazon. These cookies are typically linked to personal information. We find that these advertisers further sync their cookies with 247 other third parties, including advertising services.</p></li>
+
+          <li><i>Is voice-derived data used by either Amazon or third-party apps beyond purely functional purposes, such as for targeted advertising?</i> 
+            <p>Amazon processes voice data to infer user interests. Our measurements indicate that Amazon infers advertising interests from voice data and uses those interests for on-platform audio ads and off-platform web ads from Amazon or its advertising partners. For example, in our measurements we find that advertisers bid as much as 30X higher for Echo personas that install and interact with Alexa skills. It is unclear if third-party skills infer user interests and target personalized ads.
+            </p></li>
+
+          <li><i>Are data collection, usage, and sharing practices consistent with the policies of Amazon and third-party skills?</i> 
+            <p>Our measurements indicate that Amazon's and third-party skills' operational practices are often not clearly disclosed in their policies or other claims. For example, Amazon's inference of advertising interests from users' voice interactions seems to be inconsistent with their public statements. Specifically, in statements to the <a href="https://www.nytimes.com/2018/03/31/business/media/amazon-google-privacy-digital-assistants.html">New York Times (NYT)</a> and <a href="https://www.nbcmiami.com/news/local/are-smart-speakers-planting-ads-on-our-social-media-profiles/157153/">National Broadcasting Company (NBC)</a>, Amazon mentioned that they <i>"do not use voice recordings to target ads."</i> Only 10 third-party skills (2.2% of the sample) are clear about data collection practices in their privacy policies. More than 70% of the third-party skills do not mention Alexa or Amazon in privacy policies.
+            </p></li>
+        </ul>
+
+        <p class="fs-5 fw-bold pt-4">Is Amazon transparent about using Echo interaction data?</p>
+        <p>Amazon's inference of advertising interests from users' voice is potentially inconsistent with their public statements. Specifically, in statements to the <a href="https://www.nytimes.com/2018/03/31/business/media/amazon-google-privacy-digital-assistants.html">New York Times (NYT)</a> and <a href="https://www.nbcmiami.com/news/local/are-smart-speakers-planting-ads-on-our-social-media-profiles/157153/">National Broadcasting Company (NBC)</a>, Amazon mentioned that they <i>"do not use voice recordings to target ads."</i> While Amazon may not literally be using the "recordings" (as opposed to transcripts and corresponding activities), our results suggest that they are processing voice recordings, inferring interests, and using those interests to target ads. This distinction between voice recordings and processed recordings may not be meaningful to many users. 
+        </br></br>
+        Amazon's <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ">privacy policy</a> does not explicitly acknowledge or deny the usage of Echo interactions for ad targeting. Similarly, <a href="https://www.amazon.com/Alexa-Privacy-Hub/b?ie=UTF8&node=19149155011">Alexa Privacy Hub</a> and <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=201602230">Alexa Device FAQs</a>, which explain how Alexa data is used, also do not explicitly mention Echo interactions for ad targeting. This is concerning given that prior public statements may lead consumers to falsely believe that such voice-based interactions are <i>not</i> used for targeted ads.
+        </p>
+
+        <p class="fs-5 fw-bold pt-4">Does Amazon share voice recordings with third parties, including advertising networks?</p>
+        <p>We did not study whether Amazon directly shares voice recordings or transcripts with advertising networks (as opposed to inferences from voice interactions). Amazon's <a href="https://developer.amazon.com/en-US/docs/alexa/workshops/build-an-engaging-skill/design-vui/index.html">developer docs</a> state that only processed transcriptions of voice input (not the audio data) are shared with third-party skills.
+        </p>
+
+
+        <p class="fs-5 fw-bold pt-4">Everyone knows they are tracked for ad targeting, why are smart speakers / voice assistants special?</p>
+        <p>"Voice assistants" conjure notions of devices that serve consumers personally. But the reality is that they are far from human personal assistants in that they are controlled by, and share data with, the voice assistant providers and other parties they interact with. The goal of this work is to help consumers understand the impact of using these devices that might otherwise be considered different from other online technologies. We generally know we're being tracked and that our data is used for ads when we browse the web. Some people may be surprised to learn this about voice assistants, however, in part because voice interactions were traditionally between humans, not machines. Studies like ours help to bring transparency into the space of voice assistants and the implications of using them.
+        </p>
+
+        <p class="fs-5 fw-bold pt-4">Does Amazon secretly record users' conversations?</p>
+        <p>We did not study whether Amazon surreptitiously records users' voices when they have not engaged with Echos. We specifically looked at how data derived from intentional voice commands, which are expected to be recorded, is used for advertising purposes. <a href="https://www.petsymposium.org/2020/files/papers/issue4/popets-2020-0070.pdf">Prior work</a> found no evidence of continuous recording or secret keywords that led to unexpected recording. We do find evidence that Amazon processes voice recordings from skill interactions to infer user interests and that it uses those interests to target ads. 
+        </p>
+
+        <p class="fs-5 fw-bold pt-4">What can users do to protect their privacy?</p>
+        <p>Users can opt-out of interest-based ads from Amazon on its <a href="https://www.amazon.com/adprefs">Advertising Preferences Page</a>. Users can also access additional privacy controls managed through Settings > Alexa Privacy in the Alexa app or visit <a href="https://www.amazon.com/alexa-privacy/apd/rvh">Review Voice History Page</a> to view and delete voice recordings. To manage third-party skills advertising preferences, users will need to go to each skill's app or website. Amazon also allows users to download their data (including their advertising interests) from <a href="https://www.amazon.com/gp/privacycentral/dsar/preview.html">Request My Data Page</a>.
+        <br><br>
+        Note that we did not test the effectiveness of these controls. 
+        </p>
+
+
+        <p class="fs-5 fw-bold pt-4">What is your response to Amazon's statement on your study?</p>
+        <p><figure>
+          
+            <p class="fs-7 fst-italic text-muted">"Many of the conclusions in this research are based on inaccurate inferences or speculation by the authors, and do not accurately reflect how Alexa works. We are not in the business of selling data and we do not share Alexa requests with advertising networks. Similar to what you'd experience if you made a purchase on Amazon.com or requested a song through Amazon Music, if you ask Alexa to order paper towels or to play a song on Amazon Music, the record of that purchase or song play may inform relevant ads shown on Amazon or other sites where Amazon places ads. Customers can opt out of interest-based ads from Amazon at anytime on our website."</p>
+          
+          <figcaption class="blockquote-footer"><cite title="Source Title">Amazon</cite>
+          </figcaption>
+        </figure>
+          We welcome critiques of our research methodology and our findings, but Amazon's statement does not directly address our findings. Specifically, we find that Echo devices running Alexa skills communicate with advertising services (Section 4.2). We find that Amazon infers users' advertising interests from their Echo <i>interactions</i> (Section 6). We find that Amazon's advertising partners sync (share) cookies with Amazon, and that Amazon's partner advertisers bid more than non-partner advertisers to place ads for Echo personas (users) that install and interact with Alexa skills (Section 5.5). We also find that Amazon's and Echo skills' operational practices are often not clearly disclosed in their privacy policies (Section 7). 
+          <br><br>
+          We do not claim that Amazon directly shares voice input/transcripts with advertising networks. 
+          <br><br>
+          Amazon's statement tells users that it serves ads based on Echo interactions and that users can opt out of interest-based ads. This confirms our conclusion that it indeed uses interests inferred from users' <i>interactions</i> with Echos for behavioral advertising. Amazon does not refute our claims that it also shares users' interests with its advertising partners.
+        </p>
+      </div>
+    </div>
+    
+    <hr class="col-12 col-md-12 mb-12">
+    <div class="row g-12">
+      <div class="col-md-12">
+        <span class="mb-0 fs-4 d-flex align-items-center text-dark RT"> <a class="text-dark text-decoration-none fw-bold" href="#RT">Research team</a></span>
+      </br>
+
+      <div class="profiles my-5">
+        <div class="profile">
+          <img src="img/umar.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://www.umariqbal.com">Umar Iqbal</a>
+          </p>
+        </div>
+
+        <div class="profile">
+          <img src="img/pouneh.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://sites.google.com/ucdavis.edu/pouneh">Pouneh N. Bahrami</a>
+          </p>
+        </div>
+
+        <div class="profile">
+          <img src="img/rahmadi.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://rahmadi-trimananda.netlify.app/ha">Rahmadi Trimananda</a>
+          </p>
+        </div>
+
+        <div class="profile">
+          <img src="img/hao.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://cvhc.cc/">Hao Cui</a>
+          </p>
+        </div>
+
+        <div class="profile">
+          <img src="img/alex.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://gamero3.wixsite.com/mysite">Alex. Gamero-Garrido</a>
+          </p>
+        </div>
+
+        <div class="profile">
+          <img src="img/daniel.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://www.danieldubois.org/">Daniel Dubois</a>
+          </p>
+        </div>
+
+        <div class="profile">
+          <img src="img/david.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://david.choffnes.com/">David Choffnes</a>
+          </p>
+        </div>
+
+        <div class="profile">
+          <img src="img/athina.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://athinagroup.eng.uci.edu/athina/">Athina Markopoulou</a>
+          </p>
+        </div>
+
+        <div class="profile">
+          <img src="img/franzi.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://www.franziroesner.com/">Franziska Roesner</a>
+          </p>
+        </div>
+
+        <div class="profile">
+          <img src="img/zubair.png">
+          <p>
+            <a class="d-flex justify-content-center" href="https://web.cs.ucdavis.edu/~zubair/">Zubair Shafiq</a>
+          </p>
+        </div>
+        <br> <br>
+
+        <div id="logos" class="pt-5">
+          <a href="https://cs.washington.edu">
+            <img src="logos/allen-school.png" id="allen-logo">
+          </a>
+          
+          <a href="https://cs.ucdavis.edu">
+            <img src="logos/davis-cs.png" id="davis-logo">
+          </a>
+
+          <a href="https://engineering.uci.edu/dept/eecs">
+            <img src="logos/irvine-eng.png" id="irvine-logo">
+          </a>
+
+          <a href="https://www.khoury.northeastern.edu">
+            <img src="logos/khoury-cs.png" id="neu-logo">
+          </a>
+
+          <a href="https://properdata.eng.uci.edu">
+            <img src="logos/proper-data.png" id="ppd-logo">
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  
+
+  <footer class="pt-3 text-muted border-top">
+    This work is supported in part by the National Science Foundation under awards CNS-1956393, CNS-1955227, CNS-2103439, CNS-2114230, CNS-1909020, Computing Research Association for the CIFellows 2021 Project under Grant CNS-2127309, the Northeastern University Future Faculty Fellowship (2021), and by the Consumer Reports Digital Lab.
+  </footer>
+</div>
+      
+  </body>
+</html>
